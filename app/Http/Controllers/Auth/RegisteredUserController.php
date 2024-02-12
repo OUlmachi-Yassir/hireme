@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -45,10 +46,21 @@ class RegisteredUserController extends Controller
             'role' => $request->role,
         ]);
 
+        $gituserid = $user->id;
+        $creatprofile = new Profile();
+        $creatprofile->user_id =$gituserid;
+        $creatprofile->save();
+
         event(new Registered($user));
 
         Auth::login($user);
+        
 
-        return redirect(RouteServiceProvider::HOME);
+        // Redirect based on role
+    if ($request->role === 'utilisateur') {
+        return redirect()->route('info.form');
+    } elseif ($request->role === 'entreprise') {
+        return redirect()->route('enterprise.info');
+    }
     }
 }
