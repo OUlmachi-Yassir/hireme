@@ -14,7 +14,8 @@
 
     <label for="contact_information">Contact Information:</label>
     <input type="text" id="contact_information" name="contact_information"><br><br>
-
+    <label for="about_me">About-me:</label>
+    <input type="text" id="about_me" name="about_me"><br><br>
     <button type="submit">Save Profile</button>
 </form>
 

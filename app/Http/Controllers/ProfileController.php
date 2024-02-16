@@ -98,6 +98,8 @@ class ProfileController extends Controller
         $profile->industry = $request->input('industry');
         $profile->address = $request->input('address');
         $profile->contact_information = $request->input('contact_information');
+        $profile->about_me = $request->input('about_me');
+
         $profile->save();
 
         return redirect()->route('dashboard');
@@ -107,7 +109,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-
+ddd($profile);
         return view('profile', compact('user', 'profile'));
     
     }
@@ -123,7 +125,7 @@ public function editProfile()
     $user = auth()->user();
     $profile = $user->profile;
 
-    return view('my_profile.edit', compact('user', 'profile'));
+    return view('profile.edit', compact('user', 'profile'));
 }
 
 public function updateProfile(Request $request)

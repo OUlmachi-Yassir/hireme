@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('industry')->nullable();
             $table->string('address')->nullable();
             $table->string('contact_information')->nullable();
+            $table->string('about_me')->nullable();
             $table->timestamps();
         });
     }

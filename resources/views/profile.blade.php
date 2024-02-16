@@ -9,5 +9,7 @@
         <p><strong>Industry:</strong> {{ $profile->industry }}</p>
         <p><strong>Address:</strong> {{ $profile->address }}</p>
         <p><strong>Contact Information:</strong> {{ $profile->contact_information }}</p>
+        <p><strong>About-me:</strong> {{ $profile->about_me }}</p>
+
     </div>
 @endsection

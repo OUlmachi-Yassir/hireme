@@ -19,4 +19,21 @@ class ExperienceController extends Controller
         $experience->update($request->all());
         return redirect()->back()->with('success', 'Experience updated successfully!');
     }
+
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $experience = new Experience();
+        $experience->fill($request->all());
+        $experience->user_id = auth()->id();
+        $experience->save();
+
+        return redirect()->back()->with('success', 'Experience added successfully!');
+    }
 }

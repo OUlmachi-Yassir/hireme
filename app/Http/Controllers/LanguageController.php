@@ -20,4 +20,21 @@ class LanguageController extends Controller
         $language->update($request->all());
         return redirect()->back()->with('success', 'Language updated successfully!');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'language' => 'required|string|max:255',
+            'proficiency' => 'required|string|max:255',
+
+        ]);
+
+        $language = new Language();
+        $language->fill($request->all());
+        $language->user_id = auth()->id();
+        $language->save();
+       
+
+        return redirect()->back()->with('success', 'Language added successfully!');
+    }
 }

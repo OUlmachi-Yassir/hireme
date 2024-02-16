@@ -12,7 +12,8 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\EnterpriseInfoController;
 use App\Http\Controllers\jobeController;
-
+use Illuminate\Support\Facades\Auth;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,20 @@ Route::middleware('auth')->group(function () {
     Route::put('/my_profile/update', [ProfileController::class, 'updateProfile'])->name('my_profile.update');
     Route::post('/my_profile/skills', [SkillController::class, 'store'])->name('my_profile.skills.store');
 });
+Route::post('/skills', [SkillController::class, 'store'])->name('skills.store');
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('/education', [EducationController::class, 'store'])->name('education.store');
+    Route::post('/languages', [LanguageController::class, 'store'])->name('languages.store');
+    Route::post('/experiences', [ExperienceController::class, 'store'])->name('experiences.store');
+});
+Route::get('/download-pdf', function () {
+
+    $user = Auth::user();
+    return Pdf::view('profile.resume', ['user' => $user])->format('a4')->download('cv.pdf');
+})->name('download-pdf');
 
 
 require __DIR__.'/auth.php';

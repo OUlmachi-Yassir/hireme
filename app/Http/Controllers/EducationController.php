@@ -18,4 +18,20 @@ class EducationController extends Controller
         $education->update($request->all());
         return redirect()->back()->with('success', 'Education updated successfully!');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'degree' => 'required|string|max:255',
+            'institution' => 'required|string|max:255',
+            'field_of_study' => 'required|string|max:255',
+        ]);
+     
+        $education = new Education();
+        $education->fill($request->all());
+        $education->user_id = auth()->id();
+        $education->save();
+
+        return redirect()->back()->with('success', 'Education added successfully!');
+    }
 }
