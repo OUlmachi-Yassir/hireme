@@ -22,4 +22,8 @@ class Enterprise extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function jobe()
+    {
+        return $this->hasMany(jobe::class);
+    }
 }

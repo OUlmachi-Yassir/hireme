@@ -84,9 +84,17 @@ class ProfileController extends Controller
 
     public function saveProfile(Request $request)
     {
+
+        $imageName = null; 
+        if ($request->hasFile('profile_picture')) {
+            
+            $imageName = time() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $request->file('profile_picture')->move(public_path('images'), $imageName);
+        }
+
         $profile = new Profile();
         $profile->user_id = Auth::id();
-        $profile->profile_picture = $request->input('profile_picture');
+        $profile->profile_picture = $imageName;
         $profile->industry = $request->input('industry');
         $profile->address = $request->input('address');
         $profile->contact_information = $request->input('contact_information');
@@ -110,7 +118,23 @@ class ProfileController extends Controller
 
     return view('profile.resume', compact('user', 'profile'));
 }
+public function editProfile()
+{
+    $user = auth()->user();
+    $profile = $user->profile;
 
+    return view('my_profile.edit', compact('user', 'profile'));
+}
+
+public function updateProfile(Request $request)
+{
+    $user = auth()->user();
+    $profile = $user->profile;
+
+    $profile->update($request->only(['industry', 'address', 'contact_information']));
+
+    return redirect()->route('my_profile.edit')->with('success', 'Profile updated successfully!');
+}
 
     
 }

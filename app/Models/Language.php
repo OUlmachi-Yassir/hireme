@@ -9,10 +9,10 @@ class Language extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cv_id', 'language', 'proficiency'];
+    protected $fillable = ['user_id', 'language', 'proficiency'];
 
-    public function cv()
+    public function user()
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(User::class);
     }
 }

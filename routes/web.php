@@ -11,6 +11,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\EnterpriseInfoController;
+use App\Http\Controllers\jobeController;
 
 
 /*
@@ -36,6 +37,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');       
+Route::get('/myPost', function () {
+    return view('myPost');
+})->middleware(['auth', 'verified'])->name('myPost');   
 
 // User routes
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -87,11 +91,25 @@ Route::get('/profile/resume', [ProfileController::class, 'showResume'])->name('p
 
 Route::view('/dashboard-utilisateur', 'dashUtilisateur')->name('dashboard.utilisateur');
 Route::view('/dashboard-entreprise', 'dashEntreprise')->name('dashboard.entreprise');
+Route::post('/jobe/new', [jobeController::class, 'store'])->name('jobe.store');
+Route::get('/myPost', [jobeController::class, 'index'])->name('myPost');
+Route::get('/dashboard', [jobeController::class, 'anotherPgae'])->name('dashboard');
+Route::get('/search', [jobeController::class, 'ajaxSearch'])->name('jobe.search');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');  
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/my_profile', [ProfileController::class, 'editProfile'])->name('my_profile.edit');
+    Route::put('/my_profile/update', [ProfileController::class, 'updateProfile'])->name('my_profile.update');
+    Route::post('/my_profile/skills', [SkillController::class, 'store'])->name('my_profile.skills.store');
+});
+
 
 require __DIR__.'/auth.php';

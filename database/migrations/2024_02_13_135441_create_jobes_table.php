@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('jobes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('language');
-            $table->string('proficiency');
+            $table->foreignId('enterprise_id')->constrained()->onDelete('cascade');
+            $table->string('titre');
+            $table->string('discreption');
+            $table->string('competence');
+            $table->enum('type',['à distance','hybride', 'à temps plein']);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('jobes');
     }
 };

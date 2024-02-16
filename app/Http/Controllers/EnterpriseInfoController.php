@@ -23,18 +23,18 @@ class EnterpriseInfoController extends Controller
             'discreption' => 'nullable|string',
         ]);
         
-        $imageName = null; // Initialize imageName variable
+        $imageName = null; 
 
-    // Check if logo file is uploaded
+    
     if ($request->hasFile('logo')) {
-        // Store the image and get the image name
+        
         $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
         $request->file('logo')->move(public_path('images'), $imageName);
     }
 
         $enterprise = new Enterprise();
-        $enterprise->user_id = auth()->id(); // Assuming you are using authentication
-        $enterprise->logo = $imageName; // Save the image name
+        $enterprise->user_id = auth()->id(); 
+        $enterprise->logo = $imageName; 
         $enterprise->slogan = $request->input('slogan');
         $enterprise->industrie = $request->input('industrie');
         $enterprise->discreption = $request->input('discreption');

@@ -9,10 +9,10 @@ class Experience extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cv_id', 'title', 'company', 'description'];
+    protected $fillable = ['user_id', 'title', 'company', 'description'];
 
-    public function cv()
+    public function user()
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(User::class);
     }
 }

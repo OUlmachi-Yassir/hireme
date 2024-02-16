@@ -3,7 +3,8 @@
     @csrf
 
     <label for="profile_picture">Profile Picture:</label>
-    <input type="text" id="profile_picture" name="profile_picture"><br><br>
+    <input type="file" id="profile_picture" name="profile_picture">
+    <br><br>
 
     <label for="industry">Industry:</label>
     <input type="text" id="industry" name="industry"><br><br>

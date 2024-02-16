@@ -9,10 +9,10 @@ class Education extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cv_id', 'degree', 'institution', 'field_of_study'];
+    protected $fillable = ['user_id', 'degree', 'institution', 'field_of_study'];
 
-    public function cv()
+    public function user()
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(User::class);
     }
 }

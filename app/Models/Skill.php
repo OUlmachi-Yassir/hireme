@@ -9,10 +9,10 @@ class Skill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cv_id', 'name'];
+    protected $fillable = ['user_id', 'name'];
 
-    public function cv()
+    public function user()
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(User::class);
     }
 }
